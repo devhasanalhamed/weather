@@ -1,6 +1,6 @@
 # weather
 
-A new Flutter project to provider weather depending on the chosen city, We tried to apply the clean architecture concepts.
+A new Flutter project.
 
 ## Getting Started
 
