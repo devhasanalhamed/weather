@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:weather/core/utils/constants.dart';
@@ -19,6 +18,7 @@ class RemoteDataSource implements BaseRemoteDataSource {
       return WeatherModel.fromJson(
         response.data,
       );
+      
     } catch (e) {
       log('$e');
       return null;
