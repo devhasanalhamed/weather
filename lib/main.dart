@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:lottie/lottie.dart';
 import 'package:weather/data/datasource/remote_datasource.dart';
 import 'package:weather/data/repository/weather_repository.dart';
@@ -7,11 +8,15 @@ import 'package:weather/domain/repositroy/base_weather_repository.dart';
 import 'package:weather/domain/usecase/get_weather_by_country.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: '.env');
+
   BaseRemoteDataSource baseRemoteDataSource = RemoteDataSource();
   BaseWeatherRepository baseWeatherRepository =
       WeatherRepository(baseRemoteDataSource);
   Weather weather =
       await GetWeatherByCity(baseWeatherRepository).execute('riyadh');
+
   runApp(MyApp(weather: weather));
 }
 
