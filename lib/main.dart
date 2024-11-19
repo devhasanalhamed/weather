@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:lottie/lottie.dart';
 import 'package:weather/data/datasource/remote_datasource.dart';
 import 'package:weather/data/repository/weather_repository.dart';
 import 'package:weather/domain/entities/weather.dart';
