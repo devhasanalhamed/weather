@@ -1,35 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:weather/weather/data/datasource/remote_data_source.dart';
-import 'package:weather/weather/data/repository/weather_repository.dart';
-import 'package:weather/weather/domain/entities/weather.dart';
-import 'package:weather/weather/domain/repository/base_weather_repository.dart';
-import 'package:weather/weather/domain/usecase/get_weather_by_city_name.dart';
+import 'package:provider/provider.dart';
+import 'package:weather/weather/presentation/components/weather_card.dart';
+import 'package:weather/weather/presentation/controllers/weather_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
 
-  BaseRemoteDataSource baseRemoteDataSource = RemoteDataSource();
-  BaseWeatherRepository baseWeatherRepository =
-      WeatherRepository(baseRemoteDataSource: baseRemoteDataSource);
-  Weather weather =
-      await GetWeatherByCityName(baseWeatherRepository).execute("London");
-
-  runApp(MyApp(weather: weather));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => WeatherProvider(),
+        ),
+      ],
+      builder: (context, child) => MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  final Weather weather;
-  const MyApp({
-    super.key,
-    required this.weather,
-  });
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Weather',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -53,40 +50,10 @@ class MyApp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Card(
-                color: Colors.white24,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            weather.cityName,
-                            textAlign: TextAlign.left,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Text(
-                      weather.temp.toStringAsFixed(1),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 40,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Text(weather.description),
-              Text(weather.main),
-              Text(weather.humidity.toString()),
+              WeatherCard(),
+              // Text(weather.description),
+              // Text(weather.main),
+              // Text(weather.humidity.toString()),
             ],
           ),
         ),
