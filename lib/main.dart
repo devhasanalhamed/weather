@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:weather/data/datasource/remote_datasource.dart';
-import 'package:weather/data/repository/weather_repository.dart';
-import 'package:weather/domain/entities/weather.dart';
-import 'package:weather/domain/repositroy/base_weather_repository.dart';
-import 'package:weather/domain/usecase/get_weather_by_country.dart';
+import 'package:weather/weather/data/datasource/remote_data_source.dart';
+import 'package:weather/weather/data/repository/weather_repository.dart';
+import 'package:weather/weather/domain/entities/weather.dart';
+import 'package:weather/weather/domain/repository/base_weather_repository.dart';
+import 'package:weather/weather/domain/usecase/get_weather_by_city_name.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,9 +12,9 @@ void main() async {
 
   BaseRemoteDataSource baseRemoteDataSource = RemoteDataSource();
   BaseWeatherRepository baseWeatherRepository =
-      WeatherRepository(baseRemoteDataSource);
+      WeatherRepository(baseRemoteDataSource: baseRemoteDataSource);
   Weather weather =
-      await GetWeatherByCity(baseWeatherRepository).execute('riyadh');
+      await GetWeatherByCityName(baseWeatherRepository).execute("London");
 
   runApp(MyApp(weather: weather));
 }
