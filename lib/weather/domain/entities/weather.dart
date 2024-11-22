@@ -3,7 +3,9 @@ class Weather {
   final String cityName;
   final String main;
   final String description;
-  final double temp;
+  final double tempK;
+  final double tempF;
+  final double tempC;
   final int pressure;
   final int humidity;
   final double longitude;
@@ -14,7 +16,9 @@ class Weather {
     required this.cityName,
     required this.main,
     required this.description,
-    required this.temp,
+    required this.tempK,
+    required this.tempF,
+    required this.tempC,
     required this.pressure,
     required this.humidity,
     required this.longitude,
