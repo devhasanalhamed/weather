@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
+import 'package:weather/weather/data/datasource/remote_data_source.dart';
+import 'package:weather/weather/data/repository/weather_repository.dart';
+import 'package:weather/weather/domain/repository/base_weather_repository.dart';
+import 'package:weather/weather/domain/usecase/get_weather_by_city_name.dart';
 import 'package:weather/weather/presentation/components/weather_card.dart';
 import 'package:weather/weather/presentation/controllers/weather_provider.dart';
 
@@ -8,11 +12,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
 
+  BaseRemoteDataSource baseRemoteDataSource = RemoteDataSource();
+  BaseWeatherRepository baseWeatherRepository =
+      WeatherRepository(baseRemoteDataSource: baseRemoteDataSource);
+  GetWeatherByCityName getWeatherByCityName =
+      GetWeatherByCityName(baseWeatherRepository);
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => WeatherProvider(),
+          create: (context) => WeatherProvider(
+            getWeatherByCityNameUseCase: getWeatherByCityName,
+          ),
         ),
       ],
       builder: (context, child) => MyApp(),
@@ -51,9 +63,6 @@ class MyApp extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               WeatherCard(),
-              // Text(weather.description),
-              // Text(weather.main),
-              // Text(weather.humidity.toString()),
             ],
           ),
         ),
