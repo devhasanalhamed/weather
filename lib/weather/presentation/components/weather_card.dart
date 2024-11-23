@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather/core/enums/request_state.dart';
 import 'package:weather/core/enums/weather_scale.dart';
+import 'package:weather/location/presentation/controllers/location_provider.dart';
 import 'package:weather/weather/presentation/controllers/weather_provider.dart';
 
 class WeatherCard extends StatefulWidget {
@@ -14,8 +15,9 @@ class WeatherCard extends StatefulWidget {
 class _WeatherCardState extends State<WeatherCard> {
   @override
   void initState() {
-    Provider.of<WeatherProvider>(context, listen: false)
-        .getWeatherByCityName("riyadh");
+    Provider.of<WeatherProvider>(context, listen: false).getWeatherByCityName(
+      context.read<LocationProvider>().locationModel.cityName,
+    );
     super.initState();
   }
 
