@@ -24,7 +24,7 @@ class WeatherProvider extends ChangeNotifier {
     return weatherModel;
   }
 
-  WeatherScale weatherScale = WeatherScale.kelvin;
+  WeatherScale weatherScale = WeatherScale.celsius;
   String get temperatureWithScale {
     if (weatherScale == WeatherScale.kelvin) {
       return "${weatherModel.tempK.toStringAsFixed(1)}K";
