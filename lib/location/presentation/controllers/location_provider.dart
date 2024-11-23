@@ -35,7 +35,7 @@ class LocationProvider extends ChangeNotifier {
   List get allCities {
     List tempList = [];
     for (final city in cities) {
-      tempList.add(city["name_en"]);
+      tempList.add(city["city"]);
     }
     return tempList;
   }
