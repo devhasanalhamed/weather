@@ -7,13 +7,17 @@ class WeatherScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        title: Text(""),
+        backgroundColor: Colors.transparent,
+      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.purple,
-              Colors.deepPurple,
+              Color(0xFF111634),
+              Color(0xFF514F77),
             ],
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
@@ -22,7 +26,7 @@ class WeatherScreen extends StatelessWidget {
         height: double.infinity,
         width: double.infinity,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             WeatherCard(),
