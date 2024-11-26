@@ -14,7 +14,7 @@ class RemoteDataSource implements BaseRemoteDataSource {
   Future<WeatherModel> getWeatherByCityName(String cityName) async {
     try {
       final response = await dio.get(
-          "${AppConstants.baseUrl}/weather?q=$cityName&appid=${AppConstants.appKey}");
+          "${AppConstants.weatherUrl}?q=$cityName&appid=${AppConstants.appKey}");
       log("getWeatherByCityName=> response: $response");
       return WeatherModel.fromJson(response.data);
     } catch (error) {
