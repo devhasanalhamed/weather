@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:weather/location/data/model/location_model.dart';
 import 'package:weather/location/presentation/controllers/location_provider.dart';
 import 'package:weather/weather/presentation/screens/weather_screen.dart';
 
@@ -56,31 +57,34 @@ class LocationScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      DropdownMenu(
-                        controller: locationTextController,
-                        requestFocusOnTap: true,
-                        inputDecorationTheme: InputDecorationTheme(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          filled: true,
-                        ),
-                        hintText: "Select your city",
-                        dropdownMenuEntries: [
-                          for (var city
-                              in context.read<LocationProvider>().allCities)
-                            DropdownMenuEntry(
-                              value: city,
-                              label: city,
+                      Consumer<LocationProvider>(
+                        builder: (_, locationProvider, __) => DropdownMenu(
+                          controller: locationTextController,
+                          requestFocusOnTap: true,
+                          inputDecorationTheme: InputDecorationTheme(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                        ],
-                        onSelected: (value) {
-                          context.read<LocationProvider>().setLocation(
-                                value,
-                                0,
-                                0,
-                              );
-                        },
+                            filled: true,
+                          ),
+                          searchCallback: (entries, query) {
+                            
+                            if (query.isNotEmpty) {
+                              print("triggired");
+                              locationProvider.searchLocation(query);
+                              return null;
+                            }
+                            return null;
+                          },
+                          hintText: "Select your city",
+                          dropdownMenuEntries: [
+                            for (var city in locationProvider.cities)
+                              DropdownMenuEntry(
+                                value: city.cityName,
+                                label: city.cityName,
+                              ),
+                          ],
+                        ),
                       ),
                       ElevatedButton(
                         onPressed: () {
