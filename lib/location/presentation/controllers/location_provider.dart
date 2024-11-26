@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather/location/data/model/location_model.dart';
-import 'package:weather/location/domain/usecases/get_location.dart';
-import 'package:weather/location/domain/usecases/set_location.dart';
+import 'package:weather/location/domain/usecases/get_location_usecase.dart';
+import 'package:weather/location/domain/usecases/set_location_usecase.dart';
 
 class LocationProvider extends ChangeNotifier {
   final GetLocationUseCase getLocationUseCase;
