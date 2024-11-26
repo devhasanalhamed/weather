@@ -1,4 +1,5 @@
 import 'package:weather/location/data/datasource/location_data_source.dart';
+import 'package:weather/location/data/model/location_model.dart';
 import 'package:weather/location/domain/entities/location.dart';
 import 'package:weather/location/domain/repository/base_location_repository.dart';
 
@@ -15,5 +16,10 @@ class LocationRepository extends BaseLocationRepository {
   Future<void> setLocation(
       String? cityName, double? latitude, double? longitude) async {
     await baseLocationDataSource.setLocation(cityName, latitude, longitude);
+  }
+
+  @override
+  Future<List<LocationModel>> searchLocation(String query) async {
+    return await baseLocationDataSource.searchLocation(query);
   }
 }
