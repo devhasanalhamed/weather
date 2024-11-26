@@ -17,6 +17,7 @@ dependencies:
   flutter_dotenv: ^5.2.1
   provider: ^6.1.2
   shared_preferences: ^2.3.3
+  device_preview: ^1.2.0
 
 dev_dependencies:
   flutter_test:
