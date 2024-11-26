@@ -12,4 +12,10 @@ class LocationModel extends Location {
         latitude: map["latitude"] ?? 0,
         longitude: map["longitude"] ?? 0,
       );
+
+  factory LocationModel.fromJson(Map<String, dynamic> json) => LocationModel(
+        cityName: json["name"] ?? "unknown",
+        latitude: json["lat"] ?? 0,
+        longitude: json["lon"] ?? 0,
+      );
 }
