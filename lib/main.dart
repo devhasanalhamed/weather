@@ -1,11 +1,12 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:weather/location/data/datasource/location_data_source.dart';
 import 'package:weather/location/data/repository/location_repository.dart';
 import 'package:weather/location/domain/repository/base_location_repository.dart';
-import 'package:weather/location/domain/usecases/get_location.dart';
-import 'package:weather/location/domain/usecases/set_location.dart';
+import 'package:weather/location/domain/usecases/get_location_usecase.dart';
+import 'package:weather/location/domain/usecases/set_location_usecase.dart';
 import 'package:weather/location/presentation/controllers/location_provider.dart';
 import 'package:weather/location/presentation/presentation/location_screen.dart';
 import 'package:weather/weather/data/datasource/remote_data_source.dart';
@@ -33,21 +34,25 @@ void main() async {
       SetLocationUseCase(baseLocationRepository: baseLocationRepository);
 
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => WeatherProvider(
-            getWeatherByCityNameUseCase: getWeatherByCityName,
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => LocationProvider(
-            getLocationUseCase: getLocationUseCase,
-            setLocationUseCase: setLocationUseCase,
-          ),
-        ),
-      ],
-      builder: (context, child) => MyApp(),
+    DevicePreview(
+      builder: (BuildContext context) {
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (context) => WeatherProvider(
+                getWeatherByCityNameUseCase: getWeatherByCityName,
+              ),
+            ),
+            ChangeNotifierProvider(
+              create: (context) => LocationProvider(
+                getLocationUseCase: getLocationUseCase,
+                setLocationUseCase: setLocationUseCase,
+              ),
+            ),
+          ],
+          builder: (context, child) => MyApp(),
+        );
+      },
     ),
   );
 }
@@ -58,6 +63,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       title: 'Weather',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
