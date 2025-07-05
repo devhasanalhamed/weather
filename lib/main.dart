@@ -12,7 +12,7 @@ import 'package:weather/location/presentation/presentation/location_screen.dart'
 import 'package:weather/weather/data/datasource/remote_data_source.dart';
 import 'package:weather/weather/data/repository/weather_repository.dart';
 import 'package:weather/weather/domain/repository/base_weather_repository.dart';
-import 'package:weather/weather/domain/usecase/get_weather_by_city_name.dart';
+import 'package:weather/weather/domain/usecases/get_weather_by_city_name.dart';
 import 'package:weather/weather/presentation/controllers/weather_provider.dart';
 
 void main() async {
