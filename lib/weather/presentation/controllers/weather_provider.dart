@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather/core/enums/request_state.dart';
 import 'package:weather/core/enums/weather_scale.dart';
 import 'package:weather/weather/domain/entities/weather.dart';
-import 'package:weather/weather/domain/usecase/get_weather_by_city_name.dart';
+import 'package:weather/weather/domain/usecases/get_weather_by_city_name.dart';
 
 class WeatherProvider extends ChangeNotifier {
   final GetWeatherByCityName getWeatherByCityNameUseCase;
